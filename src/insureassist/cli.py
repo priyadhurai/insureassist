@@ -280,6 +280,141 @@ def cmd_delete(args: argparse.Namespace) -> int:
     return 0
 
 
+# --- API, users and demo data (M5) -------------------------------------------
+
+
+def cmd_serve(args: argparse.Namespace) -> int:
+    import uvicorn
+
+    print(f"API on http://{settings.api_host}:{settings.api_port}/api/v1/docs", flush=True)
+    uvicorn.run(
+        "insureassist.api.app:create_app",
+        factory=True,
+        host=settings.api_host,
+        port=settings.api_port,
+    )
+    return 0
+
+
+def _read_new_password(from_stdin: bool) -> str:
+    import getpass
+
+    from insureassist.auth.passwords import validate_new_password
+
+    if from_stdin:  # for scripts: the password is never visible on the command line
+        password = sys.stdin.readline().rstrip("\n")
+    else:
+        password = getpass.getpass("Password (12+ characters): ")
+        if getpass.getpass("Repeat password: ") != password:
+            raise ValueError("The passwords do not match.")
+    validate_new_password(password)
+    return password
+
+
+def cmd_create_user(args: argparse.Namespace) -> int:
+    from sqlalchemy import select
+
+    from insureassist.auth.passwords import hash_password
+    from insureassist.db.models import User
+    from insureassist.db.session import make_engine, make_session_factory
+
+    try:
+        password = _read_new_password(args.password_stdin)
+    except ValueError as error:
+        print(f"Error: {error}")
+        return 1
+    email = args.email.strip().lower()
+    with make_session_factory(make_engine(settings.database_url))() as db:
+        if db.scalar(select(User).where(User.email == email)):
+            print(f"A user with e-mail {email} already exists.")
+            return 1
+        db.add(
+            User(
+                email=email,
+                display_name=args.name or email.split("@")[0],
+                password_hash=hash_password(password),
+                role=args.role,
+            )
+        )
+        db.commit()
+    print(f"Created {args.role} {email}")
+    return 0
+
+
+DEMO_USERS = [
+    ("admin@example.com", "Demo Admin", "admin"),
+    ("editor@example.com", "Demo Editor", "editor"),
+    ("viewer@example.com", "Demo Viewer", "viewer"),
+]
+# (file, title, roles it is shared with). The amendment is NOT shared with viewers, so a
+# viewer and an editor get different answers to the same question: access control in action.
+DEMO_DOCUMENTS = [
+    ("auto-policy.pdf", "Personal Auto Policy", ["viewer"]),
+    ("auto-policy-amendment.pdf", "Auto Policy Amendment No. 1", []),
+    ("claims-procedure-guide.pdf", "Claims Procedure Guide", ["viewer"]),
+]
+
+
+def cmd_seed_demo(args: argparse.Namespace) -> int:
+    import secrets
+
+    from sqlalchemy import select
+
+    from insureassist.auth.passwords import hash_password
+    from insureassist.db.models import Document, User
+    from insureassist.db.session import make_engine, make_session_factory
+    from insureassist.services.documents import Storage, add_document
+
+    embedder = make_embedder()
+    storage = Storage(open_store(args.index_dir, embedder), embedder, settings.documents_dir)
+    credentials: list[str] = []
+    with make_session_factory(make_engine(settings.database_url))() as db:
+        print("\nDemo users:")
+        users: dict[str, User] = {}
+        for email, name, role in DEMO_USERS:
+            existing = db.scalar(select(User).where(User.email == email))
+            if existing and not args.reset_passwords:
+                users[role] = existing
+                print(f"  {role:7} {email:22} already exists (password unchanged)")
+                continue
+            password = secrets.token_urlsafe(12)
+            if existing:
+                existing.password_hash = hash_password(password)
+                users[role] = existing
+            else:
+                users[role] = User(
+                    email=email, display_name=name, role=role, password_hash=hash_password(password)
+                )
+                db.add(users[role])
+            credentials.append(f"{role:7} {email:22} {password}")
+            print(f"  {role:7} {email:22} {'password reset' if existing else 'created'}")
+        db.flush()
+
+        print("\nDemo documents (owner: editor):")
+        for filename, title, roles in DEMO_DOCUMENTS:
+            path = Path("samples/pdfs") / filename
+            existing_doc = db.scalar(select(Document).where(Document.filename == filename))
+            if existing_doc:
+                print(f"  {filename:28} already registered")
+                continue
+            doc = add_document(
+                db, storage, path, filename, users["editor"], title=title, shared_with_roles=roles
+            )
+            shared = ", ".join(roles) if roles else "nobody (owner + admins only)"
+            print(f"  {filename:28} {doc.chunk_count} chunks, shared with: {shared}")
+        db.commit()
+    if credentials:
+        # Saved to a git-ignored file, NOT printed, so passwords never end up in terminal
+        # history or logs. Note them, then delete the file.
+        path = settings.documents_dir.parent / "demo-credentials.txt"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        lines = ["role    e-mail                 password", *credentials]
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        print(f"\nNew passwords were saved to {path} (git-ignored).")
+    print("Start the API with: uv run insureassist serve")
+    return 0
+
+
 # --- argument parsing --------------------------------------------------------
 
 
@@ -329,6 +464,25 @@ def build_parser() -> argparse.ArgumentParser:
     delete = commands.add_parser("delete", help="remove a document from the store")
     delete.add_argument("document_id")
     delete.set_defaults(handler=cmd_delete)
+
+    commands.add_parser("serve", help="run the API").set_defaults(handler=cmd_serve)
+
+    create_user = commands.add_parser("create-user", help="add a user (asks for a password)")
+    create_user.add_argument("--email", required=True)
+    create_user.add_argument("--role", choices=["viewer", "editor", "admin"], required=True)
+    create_user.add_argument("--name", default=None)
+    create_user.add_argument(
+        "--password-stdin",
+        action="store_true",
+        help="read the password from standard input (for scripts)",
+    )
+    create_user.set_defaults(handler=cmd_create_user)
+
+    seed = commands.add_parser("seed-demo", help="create demo users and register sample PDFs")
+    seed.add_argument(
+        "--reset-passwords", action="store_true", help="give the existing demo users new passwords"
+    )
+    seed.set_defaults(handler=cmd_seed_demo)
     return parser
 
 

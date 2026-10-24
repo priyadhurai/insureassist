@@ -7,6 +7,20 @@
 | Last updated | 2026-10-18 |
 | Related | [requirements.md](requirements.md), [security-controls.md](security-controls.md), [data-models.md](data-models.md) |
 
+## 0. Implementation status (v0.1.0, 2026-10-24)
+
+All 11 endpoints are implemented ([src/insureassist/api/](../src/insureassist/api/)) and covered by tests in `tests/api/`. Interactive docs: `http://127.0.0.1:8010/api/v1/docs`. Differences from the design below ([ADR-0012](decisions/0012-m5-api-and-access-control.md)):
+
+| Topic | Design below | Implemented |
+|---|---|---|
+| Port | 8000 | 8010 (`API_PORT`), because 8000 is often taken |
+| `POST /documents` | 202, background processing | **201**, processed within the request |
+| `GET /documents` | `status` filter | no status filter (only finished documents exist) |
+| `DELETE /documents/{id}` | 409 `invalid_state` | not needed (no in-progress state) |
+| `POST /chat/query` | `include_diagnostics` for admins | not implemented; use `insureassist search` |
+| `GET /admin/evaluations` | rows from an `evaluation_runs` table | read from the report files in `eval/reports/` |
+| Readiness | `embedding_model`, `vector_index`, `keyword_index` checks | `database`, `vector_store` (backend + chunk count), `embedding_model`, `llm` |
+
 ## 1. Conventions
 
 - JSON request and response bodies (UTF-8), except `POST /auth/token` (form) and `POST /documents` (multipart).

@@ -60,6 +60,35 @@ class Settings(BaseSettings):
     llm_timeout_seconds: int = 30
     llm_max_retries: int = 2
 
+    # --- API, database and security (M5) ------------------------------------------
+    # PostgreSQL holds users, documents, permissions, queries, feedback and audit events.
+    database_url: str = (
+        "postgresql+psycopg://insureassist:change-me-local-only@localhost:5433/insureassist"
+    )
+    # Original PDFs, stored privately under generated names (never served directly).
+    documents_dir: Path = Path("data/documents")
+    api_host: str = "127.0.0.1"
+    api_port: int = 8010
+    api_base_url: str = "http://localhost:8010"  # used by the web UI
+    # Comma-separated list of browser origins allowed to call the API (never "*").
+    cors_allowed_origins: str = "http://localhost:8501"
+
+    # Login tokens (JWT, HS256). The secret must be >= 32 characters; there is no default.
+    jwt_secret_key: SecretStr | None = None
+    jwt_issuer: str = "insureassist-api"
+    jwt_audience: str = "insureassist-clients"
+    jwt_access_token_ttl_minutes: int = 15
+
+    # Input and rate limits.
+    max_question_chars: int = 2000
+    max_json_body_kb: int = 64
+    rate_limit_login_per_minute: int = 5
+    rate_limit_query_per_minute: int = 20
+    rate_limit_upload_per_hour: int = 10
+
+    # Privacy: when False, only a hash and the length of each question are stored.
+    store_query_text: bool = False
+
     @model_validator(mode="after")
     def check_chunk_settings(self) -> Self:
         # Overlap must be smaller than the chunk, otherwise chunking could never move forward.

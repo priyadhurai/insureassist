@@ -1,161 +1,166 @@
-"""InsureAssist local demo UI.
+"""InsureAssist web UI. It talks ONLY to the API, as the signed-in user.
 
-    uv run streamlit run src/insureassist/ui/app.py
+    uv run insureassist serve                          # the API (start it first)
+    uv run streamlit run src/insureassist/ui/app.py    # this UI, http://localhost:8501
 
-Left: documents, upload, search settings. Main: ask questions, see the answer with
-its sources (file + page + text snippet).
-
-Local demo only: no login and every document is visible. It listens on localhost
-(see .streamlit/config.toml). Milestone M5 replaces the direct Python calls below with
-calls to the FastAPI backend, which adds login and document permissions.
+Every permission check happens in the API: the UI shows whatever the API returns for
+this user's token. The token lives in this browser session only. The one exception is
+the admin-only "Vector DB" developer page, which reads the local vector database.
 """
 
-import os
-import tempfile
-from pathlib import Path
+from typing import Any
 
-os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
-os.environ.setdefault("HF_HUB_VERBOSITY", "error")
+import streamlit as st
 
-import streamlit as st  # noqa: E402
-
-from insureassist.config import settings  # noqa: E402
-from insureassist.generation.answer import Answer, answer_question  # noqa: E402
-from insureassist.generation.llm import GenerationError, LLMProvider, create_llm  # noqa: E402
-from insureassist.ingestion.embedder import Embedder, SentenceTransformerEmbedder  # noqa: E402
-from insureassist.ingestion.pipeline import ingest_file  # noqa: E402
-from insureassist.ingestion.vector_db import VectorDB, open_vector_db  # noqa: E402
-from insureassist.retrieval.search import MODES, Searcher  # noqa: E402
-from insureassist.ui.render import STATUS_LABELS, plain  # noqa: E402
-from insureassist.ui.vector_db_view import render_vector_db  # noqa: E402
+from insureassist.config import settings
+from insureassist.ui.api_client import ApiClient, ApiClientError
+from insureassist.ui.render import STATUS_LABELS, plain
 
 st.set_page_config(page_title="InsureAssist", page_icon=":shield:", layout="wide")
+state = st.session_state
 
 
-# --- heavy objects: created once and reused across clicks ------------------------------
+def sign_out(message: str | None = None) -> None:
+    for key in ("token", "user", "history"):
+        state.pop(key, None)
+    if message:
+        state["login_message"] = message
 
 
-@st.cache_resource(show_spinner="Loading the embedding model (first time ~15 s)...")
-def get_embedder() -> Embedder:
-    return SentenceTransformerEmbedder()
+def api() -> ApiClient:
+    return ApiClient(token=state.get("token"))
 
 
-@st.cache_resource
-def get_store() -> VectorDB:
-    return open_vector_db(get_embedder())  # FAISS or Qdrant, from the VECTOR_STORE setting
+def handle(error: ApiClientError) -> str:
+    """Expired or invalid session -> back to the login screen; else the API's message."""
+    if error.status == 401:
+        sign_out("Your session has expired. Please sign in again.")
+        st.rerun()
+    return error.message
 
 
-@st.cache_resource(show_spinner="Loading the language model...")
-def load_llm() -> LLMProvider:
-    # Cached: a local Hugging Face model (~3 GB) must not be reloaded for every question.
-    return create_llm()
+# --- login -----------------------------------------------------------------------------
 
+if "token" not in state:
+    st.title("Sign in to InsureAssist")
+    if message := state.pop("login_message", None):
+        st.info(message)
+    with st.form("login"):
+        email = st.text_input("E-mail")
+        password = st.text_input("Password", type="password")
+        submitted = st.form_submit_button("Sign in")
+    if submitted:
+        client = ApiClient()
+        try:
+            client.login(email, password)
+            state["user"] = client.me()
+            state["token"] = client.token
+            st.rerun()
+        except ApiClientError as error:
+            st.error(error.message)
+    st.caption(
+        "Local demo: the demo accounts are in data/demo-credentials.txt "
+        "(created by `insureassist seed-demo`)."
+    )
+    st.stop()
 
-def get_llm() -> LLMProvider | None:
-    try:
-        return load_llm()
-    except GenerationError as error:  # e.g. missing Gemini key (errors are not cached)
-        st.sidebar.error(str(error))
-        return None
+user: dict[str, Any] = state["user"]
 
-
-embedder = get_embedder()
-store = get_store()
-
-# --- sidebar: documents, upload, settings ----------------------------------------------
+# --- sidebar ---------------------------------------------------------------------------
 
 st.sidebar.title("InsureAssist")
-st.sidebar.caption("Local demo: no login, all documents visible.")
-# A direct link http://localhost:8501/?page=vector-db opens the Vector DB page.
-start_page = 1 if st.query_params.get("page") == "vector-db" else 0
-page = st.sidebar.radio("Page", ["Ask", "Vector DB"], index=start_page, horizontal=True)
+st.sidebar.write(f"Signed in as **{plain(user['display_name'])}** ({user['role']})")
+if st.sidebar.button("Sign out"):
+    sign_out()
+    st.rerun()
 
-st.sidebar.subheader(f"Documents ({len(store.documents)})")
-for doc in store.documents.values():
-    st.sidebar.text(f"{doc.filename}  ({doc.page_count} p, {doc.chunk_count} chunks)")
+pages = ["Ask", "Vector DB"] if user["role"] == "admin" else ["Ask"]
+page = st.sidebar.radio("Page", pages, horizontal=True) if len(pages) > 1 else "Ask"
 
-uploaded = st.sidebar.file_uploader("Add a PDF", type=["pdf"])
-if uploaded is not None and st.sidebar.button("Ingest"):
-    # Same pipeline and checks as the CLI (size, real PDF, duplicates, ...).
-    with tempfile.TemporaryDirectory() as folder:
-        path = Path(folder) / Path(uploaded.name).name  # never trust the client's path
-        path.write_bytes(uploaded.getvalue())
-        with st.spinner("Reading, chunking and embedding..."):
-            result = ingest_file(path, store, embedder)
-    if result.status == "ingested":
-        store.save()
-        st.sidebar.success(f"Ingested: {result.pages} pages, {result.chunks} chunks.")
-        for warning in result.warnings:
-            st.sidebar.warning(warning)
-    elif result.status == "duplicate":
-        st.sidebar.info("This document is already ingested.")
-    else:
-        st.sidebar.error(f"Not ingested: {result.error_message}")
+try:
+    documents = api().documents()
+except ApiClientError as error:
+    documents = []
+    st.sidebar.error(handle(error))
+st.sidebar.subheader(f"Your documents ({len(documents)})")
+st.sidebar.caption("Only the documents you are allowed to read.")
+for doc in documents:
+    st.sidebar.text(f"{doc['title']}  ({doc['page_count']} p)")
 
-st.sidebar.subheader("Search settings")
-default_mode = MODES.index(settings.retrieval_mode)
-mode = st.sidebar.radio("Retriever", MODES, index=default_mode, horizontal=True)
+if user["role"] in ("editor", "admin"):
+    uploaded = st.sidebar.file_uploader("Add a PDF", type=["pdf"])
+    share = st.sidebar.checkbox("Share with all viewers", value=False)
+    if uploaded is not None and st.sidebar.button("Upload"):
+        try:
+            with st.spinner("Uploading, chunking and embedding..."):
+                doc = api().upload(uploaded.name, uploaded.getvalue(), share)
+            st.sidebar.success(f"Added {doc['title']}: {doc['chunk_count']} chunks.")
+        except ApiClientError as error:
+            st.sidebar.error(handle(error))
+
 top_k = st.sidebar.slider("Passages given to the model", 1, 10, settings.retrieval_top_k)
 
 if page == "Vector DB":
-    render_vector_db(store, embedder)
-    st.stop()  # don't draw the chat below
+    from insureassist.ui.vector_db_page import show_vector_db_page
 
-# --- main: chat ------------------------------------------------------------------------
+    show_vector_db_page()
+    st.stop()
+
+# --- ask -------------------------------------------------------------------------------
 
 st.title("Ask about your insurance documents")
 st.caption(
-    "Answers come only from the documents on the left and cite file and page. "
+    "Answers use only the documents you may read and cite file and page. "
     "AI-generated: verify against the source. Not insurance advice."
 )
 
 
-def show_answer(answer: Answer) -> None:
-    label, color = STATUS_LABELS[answer.status]
+def show_answer(answer: dict[str, Any], index: int) -> None:
+    label, color = STATUS_LABELS[answer["status"]]
     st.markdown(f":{color}-badge[{label}]")
-    st.markdown(plain(answer.answer))  # escaped: model output is never interpreted
-    if answer.citations:
-        with st.expander(f"Sources ({len(answer.citations)})", expanded=True):
-            for c in answer.citations:
-                st.markdown(f"**{plain(c.ref)}**: {plain(c.filename)}, page {c.page_number}")
-                st.caption(plain(c.snippet))
+    st.markdown(plain(answer["answer"]))  # escaped: model output is never interpreted
+    if answer["citations"]:
+        with st.expander(f"Sources ({len(answer['citations'])})", expanded=True):
+            for c in answer["citations"]:
+                st.markdown(
+                    f"**{plain(c['ref'])}**: {plain(c['document_title'])}, page {c['page_number']}"
+                )
+                st.caption(plain(c["snippet"]))
     st.caption(
-        f"model: {answer.model or 'not called'} · retrieval {answer.retrieval_ms} ms · "
-        f"generation {answer.generation_ms} ms"
+        f"model: {answer['model']} · retrieval {answer['latency_ms']['retrieval']} ms · "
+        f"generation {answer['latency_ms']['generation']} ms"
     )
+    rated = state.setdefault("rated", set())
+    if answer["query_id"] in rated:
+        st.caption("Thanks for your feedback.")
+        return
+    up, down = st.columns([1, 6])
+    for column, rating, text in ((up, "up", "Helpful"), (down, "down", "Not helpful")):
+        if column.button(text, key=f"{rating}-{index}"):
+            try:
+                api().feedback(answer["query_id"], rating)
+                rated.add(answer["query_id"])
+                st.rerun()
+            except ApiClientError as error:
+                st.error(handle(error))
 
 
-if "history" not in st.session_state:
-    st.session_state.history = []  # list of (question, Answer | error message)
-
-for past_question, past_outcome in st.session_state.history:
+history: list[tuple[str, dict[str, Any] | str]] = state.setdefault("history", [])
+for index, (past_question, past_outcome) in enumerate(history):
     with st.chat_message("user"):
         st.markdown(plain(past_question))
     with st.chat_message("assistant"):
-        if isinstance(past_outcome, Answer):
-            show_answer(past_outcome)
+        if isinstance(past_outcome, dict):
+            show_answer(past_outcome, index)
         else:
             st.error(past_outcome)
 
-question = st.chat_input("e.g. What is the deductible for a collision?")
+question = st.chat_input("e.g. What is the collision deductible?")
 if question:
-    with st.chat_message("user"):
-        st.markdown(plain(question))
-    with st.chat_message("assistant"):
-        llm = get_llm()
-        if not store.documents:
-            outcome: Answer | str = "No documents yet. Add a PDF in the sidebar."
-        elif llm is None:
-            outcome = "The language model is not configured (see the sidebar)."
-        else:
-            try:
-                with st.spinner("Searching and answering..."):
-                    searcher = Searcher(store, embedder, mode=mode)
-                    outcome = answer_question(question, searcher, llm, top_k=top_k)
-            except GenerationError as error:
-                outcome = str(error)  # safe message (e.g. quota reached), no internals
-        if isinstance(outcome, Answer):
-            show_answer(outcome)
-        else:
-            st.error(outcome)
-    st.session_state.history.append((question, outcome))
+    try:
+        with st.spinner("Searching your documents and answering..."):
+            outcome: dict[str, Any] | str = api().ask(question, top_k)
+    except ApiClientError as error:
+        outcome = handle(error)
+    history.append((question, outcome))
+    st.rerun()

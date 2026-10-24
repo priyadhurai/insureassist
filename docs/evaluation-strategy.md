@@ -144,7 +144,7 @@ The sections below describe dataset **v1** (6 documents, 36 questions). Its file
 
 ## 7b. History: dataset v1 and baseline (2026-10-18)
 
-- Dataset `insureassist-eval-v1` 1.0.0: **36 questions** (31 answerable, 5 unanswerable), page-level binary labels and `key_facts`. The categories differ slightly from the plan in §3; see the [dataset README](../eval/datasets/insureassist-eval-v1/README.md).
+- Dataset `insureassist-eval-v1` 1.0.0: **36 questions** (31 answerable, 5 unanswerable), page-level binary labels and `key_facts`. The categories differ slightly from the plan in §3; see the [dataset README](../eval/archive/dataset-v1/README.md).
 - Code: [metrics.py](../src/insureassist/evaluation/metrics.py) and [retrieval_eval.py](../src/insureassist/evaluation/retrieval_eval.py). The automatic label check verifies each key fact appears on its labelled page.
 - Command: `uv run insureassist eval --name <run-name>`.
 
@@ -190,6 +190,8 @@ The E1 numbers above were re-run after the BM25 match-detection fix in B3 and ar
 **Decision: hybrid is not made the default.** Overall MRR stays within 0.819–0.830 for every setting: the gain on codes is cancelled by the loss on reworded questions. The default stays `RETRIEVAL_MODE=semantic`; hybrid remains available (`--retriever hybrid`).
 
 Caveats: the keyword category has only **2** questions and paraphrase **5**, so one question moves a category MRR by 0.2–0.5. Overall differences below about 0.02 are noise at this dataset size. Candidate next experiments: (a) more keyword and paraphrase questions; (b) a cross-encoder reranker over the hybrid candidates (E4). Hybrid has the best Recall@3 (0.903), so it is a good candidate generator for a reranker.
+
+**Answer evaluation: on hold (2026-10-24).** First day with the new dataset: 1 of 28 questions completed before the free-tier quota ran out. That one was q01, the conflict question, and it passed (status `conflicting_evidence`, both $500 and $750 cited). Gemini returned server errors on the next six, and its automatic retries used up the daily quota, so for evaluation runs set `LLM_MAX_RETRIES=0`. Earlier note:
 
 **Answer evaluation (implemented, not yet run in full).** [answer_eval.py](../src/insureassist/evaluation/answer_eval.py) + `uv run insureassist eval-answers` runs every question through retrieval and Gemini and checks answer rate, key-fact coverage (string match after removing `$` and `,`; a lower bound), citation hit/precision, conflict detection and abstention. The first full run (2026-10-19) hit the free-tier quota (20 requests/day) after a few questions. That partial report was **deleted as invalid**, and the runner now stops at the first quota error and keeps partial results. Answers are cached in `eval/cache/answers.jsonl`, keyed by question + model + prompt fingerprint + retriever settings + index fingerprint, so a run can be resumed the next day and re-scored without new calls.
 

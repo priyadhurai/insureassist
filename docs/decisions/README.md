@@ -18,6 +18,7 @@ All ADRs below are **Proposed** until the M0 approval. They become **Accepted** 
 | [0009](0009-single-process-indexes-and-background-ingestion.md) | Single-process indexes, BackgroundTasks, in-process rate limiting | Proposed (OD-06) |
 | [0010](0010-python-tooling-uv.md) | Python 3.12 environment and dependencies via uv | Proposed (OD-02) |
 | [0011](0011-qdrant-vector-database.md) | Qdrant as a selectable vector database (FAISS kept) | **Accepted** |
+| [0012](0012-m5-api-and-access-control.md) | M5 API, authentication and access control as implemented | **Accepted** |
 
 ## Template
 

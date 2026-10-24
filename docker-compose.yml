@@ -1,16 +1,35 @@
 # Local services for InsureAssist.
-#   docker compose up -d qdrant      start the vector database
-#   docker compose stop qdrant       stop it (data is kept in ./data/qdrant)
-# Dashboard: http://localhost:6333/dashboard
-# Milestone M6 adds the API, UI and PostgreSQL services here.
+#   docker compose up -d                 start PostgreSQL and Qdrant
+#   docker compose stop                  stop them (data is kept)
+# Qdrant dashboard: http://localhost:6333/dashboard
+# Every port is bound to 127.0.0.1: reachable only from this computer.
+# Milestone M6 adds the API and UI containers here.
 
 services:
+  postgres:
+    image: postgres:16.15   # pinned version (checked 2026-10-24)
+    container_name: insureassist-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-insureassist}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-insureassist}
+    ports:
+      - "127.0.0.1:5433:5432"   # 5433 on this PC (5432 is often taken by a local install)
+    volumes:
+      # A named Docker volume: PostgreSQL does not run reliably on a Windows folder mount.
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
   qdrant:
     image: qdrant/qdrant:v1.19.2   # pinned version (checked 2026-10-19)
     container_name: insureassist-qdrant
     ports:
-      # 127.0.0.1 = reachable only from this computer. Qdrant has no login enabled
-      # here, so it must not be exposed on the network.
+      # Qdrant has no login enabled here, so it must not be exposed on the network.
       - "127.0.0.1:6333:6333"   # REST API + web dashboard
       - "127.0.0.1:6334:6334"   # gRPC API
     volumes:
@@ -18,3 +37,6 @@ services:
     environment:
       QDRANT__TELEMETRY_DISABLED: "true"
     restart: unless-stopped
+
+volumes:
+  pgdata:

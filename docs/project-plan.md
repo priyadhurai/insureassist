@@ -15,8 +15,8 @@
 | — | Qdrant vector DB (ADR-0011) | ✅ Selectable via `VECTOR_STORE`; same 25 store tests pass on FAISS and Qdrant; identical evaluation results | — |
 | M2 | Retrieval (BM25, hybrid, metrics) | 🟡 B1 done (dataset, metrics, semantic baseline MRR 0.827). B2 done (BM25: MRR 0.832; keyword category 0.375 → 1.000, paraphrase 0.707 → 0.367). B3 done: hybrid RRF built and measured; no gain (MRR 0.826), so semantic stays the default; abstention now also uses keyword matches. Awaiting approval. | ☐ |
 | M3 | Grounded generation | 🟡 Built and live-checked (2026-10-18, `gemini-3.8-flash`): 6/6 manual cases correct (answered ×3, conflict ×1, abstain ×3). 18 tests (fake LLM). Awaiting approval. | ☐ |
-| M4 | Evaluation and quality improvement | ⚪ Not started | ☐ |
-| M5 | API, UI and security | 🟡 Interim local demo UI (Streamlit, no login, localhost only, 7 tests incl. AppTest). API, auth and permissions not started. | ☐ |
+| M4 | Evaluation and quality improvement | 🟡 Retrieval evaluation done (dataset v2, MRR 0.942); answer evaluation **on hold** (Gemini free quota; 1/28 done: conflict detected correctly) | ☐ |
+| M5 | API, UI and security | ✅ Done (2026-10-24): FastAPI, PostgreSQL + Alembic, JWT + Argon2id, roles, document permissions, audit, rate limits; UI signs in and uses only the API; 180 tests. [ADR-0012](decisions/0012-m5-api-and-access-control.md). Released as v0.1.0. | ☐ |
 | M6 | Local release | ⚪ Not started | ☐ |
 | M7 | Cloud deployment planning and implementation | ⚪ Not started | ☐ |
 
