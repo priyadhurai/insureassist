@@ -31,6 +31,7 @@
 | UI: "The API is not reachable" | Start it: `uv run insureassist serve`; check `API_BASE_URL` in `.env` |
 | Lost the demo passwords | `uv run insureassist seed-demo --reset-passwords` (new ones in `data/demo-credentials.txt`) |
 | `uv run` fails: insureassist.exe in use | A running `insureassist serve` locks the file on Windows: stop it, or use `uv run --no-sync …` |
+| UI shows `AttributeError: 'Settings' object has no attribute …` after an update | An old UI (or API) process still runs the previous code: stop it (Ctrl+C) and start it again |
 | "Qdrant is not reachable at http://localhost:6333" | `docker compose up -d qdrant`; check `docker ps` shows `insureassist-qdrant`; or set `VECTOR_STORE=faiss` |
 | "Collection … was built with <other model>" | The embedding model changed. Delete the collection in the Qdrant dashboard (or `curl -X DELETE http://localhost:6333/collections/insureassist_chunks`) and ingest again |
 | "Gemini rate limit or quota was reached" | Free tier = 20 requests/day per model (`gemini-3.8-flash`, observed 2026-10-19); resets daily. Check usage in Google AI Studio. Wait for the reset, use a paid tier, or point `GEMINI_MODEL` at another model (separate quota) |
