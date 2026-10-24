@@ -1,0 +1,5 @@
+# Store text files with LF line endings in the repository (Linux, Docker and CI friendly).
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.docx binary

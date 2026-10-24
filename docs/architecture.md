@@ -79,7 +79,7 @@ flowchart LR
 
 | # | Module (package) | Responsibility | Depends on |
 |---|---|---|---|
-| 1 | `ui/` | **Current (interim):** `src/insureassist/ui/app.py` calls the Python modules directly, as a localhost-only demo without login. **Target (M5):** Streamlit pages. Holds the token in `st.session_state` and calls only the public API. | `httpx` |
+| 1 | `ui/` | **Implemented (M5):** `src/insureassist/ui/app.py` signs in and calls only the API through `ui/api_client.py`; the admin-only Vector DB developer page reads the local store. Holds the token in `st.session_state` and calls only the public API. | `httpx` |
 | 2 | `insureassist.api` | Routers, Pydantic schemas, dependency injection, middleware, error mapping. | services |
 | 3 | `insureassist.auth` | Password hashing, JWT issue/verify, current-user dependency, role checks. | `db`, config |
 | 4 | `insureassist.ingestion` | PDF validation, page extraction, normalization, chunking, IDs, reports, JSONL export, CLI. | PyMuPDF |

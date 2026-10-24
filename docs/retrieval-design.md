@@ -83,7 +83,7 @@ Recovery is `insureassist rebuild-index` ([runbook.md](runbook.md)). An optional
 
 ## 4. BM25 keyword index
 
-> **Implemented (B2):** [keyword_search.py](../src/insureassist/retrieval/keyword_search.py), `KeywordIndex` over `BM25Okapi` defaults. Tokenizer: NFKC + lowercase, `1,500` → `1500`, codes kept whole **and** split (`ap-rs-12`, `ap`, `rs`, `12`), small stopword list that keeps `not`/`no`. Rebuilt in memory from the store's chunks; never persisted. [retrievers.py](../src/insureassist/retrieval/retrievers.py) selects `semantic` or `keyword` by name.
+> **Implemented (B2):** [keyword_search.py](../src/insureassist/retrieval/keyword_search.py), `KeywordIndex` over `BM25Okapi` defaults. Tokenizer: NFKC + lowercase, `1,500` → `1500`, codes kept whole **and** split (`ap-rs-12`, `ap`, `rs`, `12`), small stopword list that keeps `not`/`no`. Rebuilt in memory from the store's chunks; never persisted. [search.py](../src/insureassist/retrieval/search.py) selects `semantic`, `keyword` or `hybrid` by name (the B2 `retrievers.py` was replaced in B3).
 
 - `rank_bm25.BM25Okapi` (`k1=1.5`, `b=0.75`, library defaults, recorded in configuration).
 - Tokenizer v1: lowercase → NFKC → regex `[a-z0-9]+(?:[.\-/][a-z0-9]+)*`, which keeps tokens like `ho-3`, `5,000` → `5`/`000`(†), and `sec.4.2`. A small English stopword list is applied; there is no stemming. The tokenizer version is recorded.

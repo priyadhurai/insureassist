@@ -6,6 +6,23 @@
 | Last updated | 2026-10-18 |
 | Related | [architecture.md](architecture.md), [ADR-0003](decisions/0003-postgres-canonical-faiss-derived.md), [ADR-0006](decisions/0006-deterministic-identifiers.md), [ADR-0008](decisions/0008-jsonl-canonical-store-before-postgres.md) |
 
+## 0. Implemented schema (v0.1.0)
+
+Created by the Alembic migration [`0001_initial_schema.py`](../migrations/versions/0001_initial_schema.py); models in [db/models.py](../src/insureassist/db/models.py). Differences from the design below ([ADR-0012](decisions/0012-m5-api-and-access-control.md)):
+
+| Table | Implemented as |
+|---|---|
+| `users` | as designed, plus a single `role` column (no `roles` / `user_roles` tables) |
+| `documents` | id = `doc_` + 16 hex (string); no status column (only finished documents are stored) |
+| `chunks` | **not in PostgreSQL**: chunk text and vectors live in the vector database (Qdrant payloads) |
+| `document_access` | as designed: one user OR one role per grant (check constraint), unique per document |
+| `retrieval_traces` | named `query_logs`: question hash and length (text only if `STORE_QUERY_TEXT=true`), status, cited chunk ids, timings, model |
+| `query_feedback` | named `feedback`, one per user per query |
+| `audit_events` | as designed |
+| `evaluation_runs` | not a table: evaluation reports are JSON files |
+
+The sections below are the original M0 design.
+
 ## 1. Principles
 
 - PostgreSQL is the canonical store for users, ACLs, documents and chunk text. FAISS and BM25 are derived from it.

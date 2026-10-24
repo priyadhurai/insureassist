@@ -6,6 +6,33 @@
 | Last updated | 2026-10-18 |
 | Related | [requirements.md](requirements.md), [api-specification.md](api-specification.md), [test-strategy.md](test-strategy.md), [ADR-0004](decisions/0004-authorization-before-generation.md) |
 
+## 0. Status as of v0.1.0 (2026-10-24)
+
+The tables in section 4 were written in M0 with every control "Planned". This is the current status; "tested" names the test that proves it.
+
+| Status | Controls | Tested by |
+|---|---|---|
+| **Implemented + tested** | C-AUTH-01 Argon2id, dummy verify for unknown users | `test_passwords_use_argon2id`, `test_wrong_password_and_unknown_user_look_the_same` |
+| | C-AUTH-02 JWT allow-list, required claims, 15-min TTL, strong secret enforced | `test_forged_and_expired_tokens_are_rejected` (8 cases), `test_weak_jwt_secret_is_refused` |
+| | C-AUTH-03 role + active status from the DB each request | `test_deactivated_user_is_locked_out_at_once` |
+| | C-AZ-01 role per endpoint | `test_role_matrix` |
+| | C-AZ-02 permissions inside the vector search + citation re-check | `test_unauthorized_text_never_reaches_the_llm`, `test_document_filter_cannot_widen_access` |
+| | C-AZ-03 hidden = 404; filters only narrow | `test_hidden_document_looks_like_it_does_not_exist` |
+| | C-PI-01..05 rules separate, evidence delimited, JSON output, citation validation | `tests/unit/test_generation.py` |
+| | C-OUT-01 model text shown as plain text | `test_plain_escapes_every_markdown_and_html_character` |
+| | C-OUT-03 disclaimer on every answer | `test_query_returns_answer_with_citation` |
+| | C-FILE-01/02/03/05 streamed size limit, content check, PDF checks, generated storage names | `test_upload_rules`, `test_stored_file_name_never_comes_from_the_user`, `tests/unit/test_pdf_reader.py` |
+| | C-DB-01 ORM / bound parameters only | `test_sql_injection_text_is_just_data` |
+| | C-LOG-02 safe error envelope, no internals | `test_llm_failure_is_a_safe_503`, `test_unexpected_errors_hide_details` |
+| | C-PRIV-01 question hash, not text, by default | `test_query_returns_answer_with_citation` |
+| | C-PRIV-02 delete removes vectors, file and row | `test_delete_rules` |
+| | C-RL-01 / C-IN-01 rate and size limits | `test_login_rate_limit`, `test_query_rate_limit`, `test_large_json_body_is_rejected` |
+| | C-AUD-01 audit events | `test_wrong_password_and_unknown_user_look_the_same` (+ upload/delete/access-denied events in code) |
+| | C-HDR-01 `nosniff`, `no-store`, request id | `test_error_format_and_request_id` |
+| | C-SEC-01/02 secrets only in `.env` (git-ignored); demo passwords to a git-ignored file | review + `.gitignore` |
+| **Implemented, not separately tested** | C-AUTH-04 password policy in `create-user`; C-CORS-01 explicit origin list; C-IDX-02 (partial: the store refuses an index built by another embedding model) | |
+| **Not yet** | C-FILE-04 container hardening, C-SEC-03 secret scanning in CI, C-SC-01/02 dependency and image scanning, C-TLS-01 TLS (deployment), C-LOG-01 structured JSON logs with a redaction filter | planned for M6/M7 |
+
 ## 1. Assets
 
 | Asset | Sensitivity | Where |
