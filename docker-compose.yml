@@ -1,0 +1,20 @@
+# Local services for InsureAssist.
+#   docker compose up -d qdrant      start the vector database
+#   docker compose stop qdrant       stop it (data is kept in ./data/qdrant)
+# Dashboard: http://localhost:6333/dashboard
+# Milestone M6 adds the API, UI and PostgreSQL services here.
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.19.2   # pinned version (checked 2026-10-19)
+    container_name: insureassist-qdrant
+    ports:
+      # 127.0.0.1 = reachable only from this computer. Qdrant has no login enabled
+      # here, so it must not be exposed on the network.
+      - "127.0.0.1:6333:6333"   # REST API + web dashboard
+      - "127.0.0.1:6334:6334"   # gRPC API
+    volumes:
+      - ./data/qdrant:/qdrant/storage   # vectors survive container restarts
+    environment:
+      QDRANT__TELEMETRY_DISABLED: "true"
+    restart: unless-stopped

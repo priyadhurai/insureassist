@@ -1,0 +1,1170 @@
+{
+  "name": "baseline-semantic",
+  "created_at": "2026-10-18T08:40:08+00:00",
+  "git_commit": "no-commit-yet",
+  "dataset": "insureassist-eval-v1",
+  "config": {
+    "retriever": "semantic",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "chunk_size_chars": 800,
+    "chunk_overlap_chars": 120,
+    "indexed_chunks": 31
+  },
+  "averages": {
+    "mrr": 0.8274,
+    "recall@1": 0.6774,
+    "hit@1": 0.7419,
+    "ndcg@1": 0.7419,
+    "recall@3": 0.8871,
+    "hit@3": 0.9032,
+    "ndcg@3": 0.8134,
+    "recall@5": 1.0,
+    "hit@5": 1.0,
+    "ndcg@5": 0.8607,
+    "recall@10": 1.0,
+    "hit@10": 1.0,
+    "ndcg@10": 0.8607
+  },
+  "by_category": {
+    "conflicting": {
+      "mrr": 1.0,
+      "recall@1": 0.5,
+      "hit@1": 1.0,
+      "ndcg@1": 1.0,
+      "recall@3": 1.0,
+      "hit@3": 1.0,
+      "ndcg@3": 0.9598,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.9598,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.9598
+    },
+    "definition": {
+      "mrr": 1.0,
+      "recall@1": 1.0,
+      "hit@1": 1.0,
+      "ndcg@1": 1.0,
+      "recall@3": 1.0,
+      "hit@3": 1.0,
+      "ndcg@3": 1.0,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 1.0,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 1.0
+    },
+    "factual": {
+      "mrr": 0.8167,
+      "recall@1": 0.65,
+      "hit@1": 0.7,
+      "ndcg@1": 0.7,
+      "recall@3": 0.95,
+      "hit@3": 1.0,
+      "ndcg@3": 0.8244,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.8508,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.8508
+    },
+    "keyword": {
+      "mrr": 0.375,
+      "recall@1": 0.0,
+      "hit@1": 0.0,
+      "ndcg@1": 0.0,
+      "recall@3": 0.5,
+      "hit@3": 0.5,
+      "ndcg@3": 0.3155,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.5308,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.5308
+    },
+    "multi_page": {
+      "mrr": 1.0,
+      "recall@1": 0.5,
+      "hit@1": 1.0,
+      "ndcg@1": 1.0,
+      "recall@3": 1.0,
+      "hit@3": 1.0,
+      "ndcg@3": 0.9197,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.9197,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.9197
+    },
+    "numeric": {
+      "mrr": 0.92,
+      "recall@1": 0.9,
+      "hit@1": 0.9,
+      "ndcg@1": 0.9,
+      "recall@3": 0.9,
+      "hit@3": 0.9,
+      "ndcg@3": 0.9,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.9387,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.9387
+    },
+    "paraphrase": {
+      "mrr": 0.7067,
+      "recall@1": 0.6,
+      "hit@1": 0.6,
+      "ndcg@1": 0.6,
+      "recall@3": 0.8,
+      "hit@3": 0.8,
+      "ndcg@3": 0.7,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.7774,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.7774
+    }
+  },
+  "best_score_answerable": {
+    "min": 0.2551,
+    "mean": 0.5477,
+    "max": 0.7888
+  },
+  "best_score_unanswerable": {
+    "min": 0.0696,
+    "mean": 0.4484,
+    "max": 0.5721
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "category": "factual",
+      "question": "What is the collision deductible on the auto policy?",
+      "relevant": [
+        "auto-policy.pdf p3"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p2",
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p1",
+        "homeowners-policy.pdf p1"
+      ],
+      "best_score": 0.6296,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q02",
+      "category": "keyword",
+      "question": "What does Form AP-RS-12 cover?",
+      "relevant": [
+        "auto-policy.pdf p2"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p1",
+        "travel-insurance-certificate.pdf p1",
+        "homeowners-policy.pdf p1",
+        "auto-policy.pdf p2",
+        "dental-plan-summary.pdf p1",
+        "dental-plan-summary.pdf p2",
+        "homeowners-policy.pdf p2",
+        "travel-insurance-certificate.pdf p3",
+        "auto-policy.pdf p3"
+      ],
+      "best_score": 0.2551,
+      "scores": {
+        "mrr": 0.25,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "hit@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.4307,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.4307
+      }
+    },
+    {
+      "id": "q03",
+      "category": "numeric",
+      "question": "What are the bodily injury liability limits?",
+      "relevant": [
+        "auto-policy.pdf p2"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p2",
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "travel-insurance-certificate.pdf p3",
+        "auto-policy.pdf p4",
+        "homeowners-policy.pdf p3"
+      ],
+      "best_score": 0.7633,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q04",
+      "category": "paraphrase",
+      "question": "If my car is in the shop after an accident, will you pay for a replacement car?",
+      "relevant": [
+        "auto-policy.pdf p3"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p2",
+        "homeowners-policy.pdf p4",
+        "auto-policy.pdf p1",
+        "travel-insurance-certificate.pdf p2"
+      ],
+      "best_score": 0.4558,
+      "scores": {
+        "mrr": 0.3333,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "id": "q05",
+      "category": "factual",
+      "question": "How long do I have to report a car accident?",
+      "relevant": [
+        "auto-policy.pdf p4"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "claims-procedure-guide.pdf p1",
+        "travel-insurance-certificate.pdf p3",
+        "auto-policy.pdf p2",
+        "claims-procedure-guide.pdf p2",
+        "homeowners-policy.pdf p4"
+      ],
+      "best_score": 0.5776,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q06",
+      "category": "definition",
+      "question": "What counts as a covered auto?",
+      "relevant": [
+        "auto-policy.pdf p1"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p4",
+        "homeowners-policy.pdf p1",
+        "auto-policy.pdf p2",
+        "homeowners-policy.pdf p2"
+      ],
+      "best_score": 0.6043,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q07",
+      "category": "paraphrase",
+      "question": "Is damage to my tires from potholes covered?",
+      "relevant": [
+        "auto-policy.pdf p3"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p3",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p4",
+        "homeowners-policy.pdf p2",
+        "travel-insurance-certificate.pdf p3",
+        "travel-insurance-certificate.pdf p2"
+      ],
+      "best_score": 0.3787,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q08",
+      "category": "numeric",
+      "question": "How much notice do you give before cancelling a policy for nonpayment?",
+      "relevant": [
+        "auto-policy.pdf p4"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "homeowners-policy.pdf p4",
+        "dental-plan-summary.pdf p3",
+        "travel-insurance-certificate.pdf p2",
+        "travel-insurance-certificate.pdf p3",
+        "claims-procedure-guide.pdf p1",
+        "claims-procedure-guide.pdf p2"
+      ],
+      "best_score": 0.5196,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q09",
+      "category": "factual",
+      "question": "Is flood damage to my house covered?",
+      "relevant": [
+        "homeowners-policy.pdf p3"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p3",
+        "homeowners-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p1",
+        "auto-policy.pdf p2",
+        "homeowners-policy.pdf p4",
+        "auto-policy.pdf p4"
+      ],
+      "best_score": 0.5507,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q10",
+      "category": "numeric",
+      "question": "What is the deductible for wind or hail damage to my home?",
+      "relevant": [
+        "homeowners-policy.pdf p2"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p2",
+        "homeowners-policy.pdf p3",
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p1",
+        "auto-policy.pdf p2",
+        "homeowners-policy.pdf p4",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "best_score": 0.6388,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q11",
+      "category": "numeric",
+      "question": "How much will the homeowners policy pay for stolen jewelry?",
+      "relevant": [
+        "homeowners-policy.pdf p1"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p3",
+        "homeowners-policy.pdf p4",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2"
+      ],
+      "best_score": 0.616,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q12",
+      "category": "paraphrase",
+      "question": "If my house is unlivable after a fire, do you pay for a hotel?",
+      "relevant": [
+        "homeowners-policy.pdf p1"
+      ],
+      "retrieved": [
+        "travel-insurance-certificate.pdf p2",
+        "homeowners-policy.pdf p3",
+        "homeowners-policy.pdf p4",
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p2",
+        "travel-insurance-certificate.pdf p1"
+      ],
+      "best_score": 0.2969,
+      "scores": {
+        "mrr": 0.2,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "hit@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.3869,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.3869
+      }
+    },
+    {
+      "id": "q13",
+      "category": "factual",
+      "question": "Is mold damage covered on my home?",
+      "relevant": [
+        "homeowners-policy.pdf p3"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p3",
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p2",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p4",
+        "homeowners-policy.pdf p4"
+      ],
+      "best_score": 0.5823,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q14",
+      "category": "factual",
+      "question": "Are earthquakes covered by the homeowners policy?",
+      "relevant": [
+        "homeowners-policy.pdf p3"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p3",
+        "homeowners-policy.pdf p2",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p4"
+      ],
+      "best_score": 0.4974,
+      "scores": {
+        "mrr": 0.5,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.6309,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.6309,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.6309
+      }
+    },
+    {
+      "id": "q15",
+      "category": "numeric",
+      "question": "How long do I have to repair my home to get full replacement cost?",
+      "relevant": [
+        "homeowners-policy.pdf p4"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p4",
+        "homeowners-policy.pdf p3",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p1",
+        "auto-policy.pdf p4",
+        "travel-insurance-certificate.pdf p3"
+      ],
+      "best_score": 0.5545,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q16",
+      "category": "keyword",
+      "question": "What is Form HO-29?",
+      "relevant": [
+        "homeowners-policy.pdf p4"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p4",
+        "auto-policy.pdf p1",
+        "travel-insurance-certificate.pdf p1",
+        "claims-procedure-guide.pdf p1",
+        "dental-plan-summary.pdf p1",
+        "travel-insurance-certificate.pdf p3",
+        "homeowners-policy.pdf p2",
+        "dental-plan-summary.pdf p2"
+      ],
+      "best_score": 0.2718,
+      "scores": {
+        "mrr": 0.5,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.6309,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.6309,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.6309
+      }
+    },
+    {
+      "id": "q17",
+      "category": "numeric",
+      "question": "How much is the dental deductible for a family?",
+      "relevant": [
+        "dental-plan-summary.pdf p1"
+      ],
+      "retrieved": [
+        "dental-plan-summary.pdf p1",
+        "travel-insurance-certificate.pdf p2",
+        "dental-plan-summary.pdf p2",
+        "dental-plan-amendment.pdf p1",
+        "dental-plan-summary.pdf p3",
+        "auto-policy.pdf p3"
+      ],
+      "best_score": 0.7063,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q18",
+      "category": "conflicting",
+      "question": "What is the annual maximum for dental benefits?",
+      "relevant": [
+        "dental-plan-amendment.pdf p1",
+        "dental-plan-summary.pdf p1"
+      ],
+      "retrieved": [
+        "dental-plan-summary.pdf p1",
+        "dental-plan-amendment.pdf p1",
+        "dental-plan-summary.pdf p2",
+        "travel-insurance-certificate.pdf p2",
+        "dental-plan-summary.pdf p3",
+        "homeowners-policy.pdf p1"
+      ],
+      "best_score": 0.7159,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q19",
+      "category": "conflicting",
+      "question": "How long is the waiting period for dental crowns?",
+      "relevant": [
+        "dental-plan-amendment.pdf p1",
+        "dental-plan-summary.pdf p2"
+      ],
+      "retrieved": [
+        "dental-plan-summary.pdf p2",
+        "dental-plan-summary.pdf p3",
+        "dental-plan-amendment.pdf p1",
+        "travel-insurance-certificate.pdf p2",
+        "claims-procedure-guide.pdf p2",
+        "dental-plan-summary.pdf p1",
+        "homeowners-policy.pdf p4"
+      ],
+      "best_score": 0.5563,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.9197,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.9197,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.9197
+      }
+    },
+    {
+      "id": "q20",
+      "category": "factual",
+      "question": "Does the dental plan cover braces for adults?",
+      "relevant": [
+        "dental-plan-summary.pdf p2"
+      ],
+      "retrieved": [
+        "dental-plan-amendment.pdf p1",
+        "dental-plan-summary.pdf p1",
+        "dental-plan-summary.pdf p2",
+        "travel-insurance-certificate.pdf p2",
+        "dental-plan-summary.pdf p3",
+        "homeowners-policy.pdf p1"
+      ],
+      "best_score": 0.5489,
+      "scores": {
+        "mrr": 0.3333,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "id": "q21",
+      "category": "numeric",
+      "question": "How often are dental cleanings covered?",
+      "relevant": [
+        "dental-plan-summary.pdf p2"
+      ],
+      "retrieved": [
+        "dental-plan-summary.pdf p2",
+        "dental-plan-summary.pdf p1",
+        "dental-plan-summary.pdf p3",
+        "travel-insurance-certificate.pdf p2",
+        "dental-plan-amendment.pdf p1",
+        "homeowners-policy.pdf p3"
+      ],
+      "best_score": 0.5554,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q22",
+      "category": "factual",
+      "question": "Is teeth whitening covered?",
+      "relevant": [
+        "dental-plan-summary.pdf p3"
+      ],
+      "retrieved": [
+        "dental-plan-summary.pdf p3",
+        "dental-plan-summary.pdf p2",
+        "travel-insurance-certificate.pdf p2",
+        "dental-plan-summary.pdf p1",
+        "dental-plan-amendment.pdf p1",
+        "homeowners-policy.pdf p3"
+      ],
+      "best_score": 0.4068,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q23",
+      "category": "numeric",
+      "question": "What is the deadline for submitting an out-of-network dental claim?",
+      "relevant": [
+        "dental-plan-summary.pdf p3"
+      ],
+      "retrieved": [
+        "dental-plan-summary.pdf p3",
+        "claims-procedure-guide.pdf p2",
+        "dental-plan-summary.pdf p2",
+        "claims-procedure-guide.pdf p1",
+        "travel-insurance-certificate.pdf p2",
+        "dental-plan-amendment.pdf p1",
+        "dental-plan-summary.pdf p1"
+      ],
+      "best_score": 0.6812,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q24",
+      "category": "numeric",
+      "question": "How much is covered for emergency medical evacuation when travelling?",
+      "relevant": [
+        "travel-insurance-certificate.pdf p1"
+      ],
+      "retrieved": [
+        "travel-insurance-certificate.pdf p2",
+        "homeowners-policy.pdf p3",
+        "auto-policy.pdf p2",
+        "travel-insurance-certificate.pdf p1",
+        "homeowners-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "homeowners-policy.pdf p1",
+        "travel-insurance-certificate.pdf p3",
+        "auto-policy.pdf p4"
+      ],
+      "best_score": 0.5919,
+      "scores": {
+        "mrr": 0.2,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "hit@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.3869,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.3869
+      }
+    },
+    {
+      "id": "q25",
+      "category": "paraphrase",
+      "question": "If I simply decide I don't want to travel anymore, will I get my money back?",
+      "relevant": [
+        "travel-insurance-certificate.pdf p2"
+      ],
+      "retrieved": [
+        "travel-insurance-certificate.pdf p2",
+        "travel-insurance-certificate.pdf p3",
+        "travel-insurance-certificate.pdf p1",
+        "auto-policy.pdf p4",
+        "homeowners-policy.pdf p4",
+        "homeowners-policy.pdf p1",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3"
+      ],
+      "best_score": 0.4145,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q26",
+      "category": "factual",
+      "question": "Are pre-existing medical conditions covered on the travel policy?",
+      "relevant": [
+        "travel-insurance-certificate.pdf p3"
+      ],
+      "retrieved": [
+        "travel-insurance-certificate.pdf p3",
+        "travel-insurance-certificate.pdf p2",
+        "travel-insurance-certificate.pdf p1",
+        "auto-policy.pdf p2",
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p2",
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p4"
+      ],
+      "best_score": 0.6403,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q27",
+      "category": "paraphrase",
+      "question": "Am I covered if I go mountain climbing on my trip?",
+      "relevant": [
+        "travel-insurance-certificate.pdf p3"
+      ],
+      "retrieved": [
+        "travel-insurance-certificate.pdf p3",
+        "travel-insurance-certificate.pdf p2",
+        "auto-policy.pdf p2",
+        "homeowners-policy.pdf p3",
+        "homeowners-policy.pdf p1",
+        "homeowners-policy.pdf p2",
+        "travel-insurance-certificate.pdf p1",
+        "auto-policy.pdf p3",
+        "dental-plan-summary.pdf p2"
+      ],
+      "best_score": 0.4448,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q28",
+      "category": "factual",
+      "question": "How long does it take to acknowledge a new claim?",
+      "relevant": [
+        "claims-procedure-guide.pdf p1",
+        "claims-procedure-guide.pdf p2"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2",
+        "travel-insurance-certificate.pdf p3",
+        "claims-procedure-guide.pdf p1",
+        "homeowners-policy.pdf p4",
+        "dental-plan-summary.pdf p3",
+        "auto-policy.pdf p4"
+      ],
+      "best_score": 0.7307,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 0.5,
+        "hit@3": 1.0,
+        "ndcg@3": 0.6131,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.8772,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.8772
+      }
+    },
+    {
+      "id": "q29",
+      "category": "numeric",
+      "question": "How long do I have to appeal a claim decision?",
+      "relevant": [
+        "claims-procedure-guide.pdf p2"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2",
+        "travel-insurance-certificate.pdf p3",
+        "claims-procedure-guide.pdf p1",
+        "dental-plan-summary.pdf p3",
+        "homeowners-policy.pdf p4",
+        "auto-policy.pdf p4"
+      ],
+      "best_score": 0.7888,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q30",
+      "category": "factual",
+      "question": "What should I do first after a loss?",
+      "relevant": [
+        "claims-procedure-guide.pdf p1"
+      ],
+      "retrieved": [
+        "travel-insurance-certificate.pdf p3",
+        "homeowners-policy.pdf p4",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p4",
+        "travel-insurance-certificate.pdf p2",
+        "claims-procedure-guide.pdf p2",
+        "homeowners-policy.pdf p3"
+      ],
+      "best_score": 0.3939,
+      "scores": {
+        "mrr": 0.3333,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "id": "q31",
+      "category": "multi_page",
+      "question": "What are the deadlines to report a loss under the auto and homeowners policies?",
+      "relevant": [
+        "auto-policy.pdf p4",
+        "homeowners-policy.pdf p4"
+      ],
+      "retrieved": [
+        "homeowners-policy.pdf p4",
+        "auto-policy.pdf p4",
+        "claims-procedure-guide.pdf p1",
+        "travel-insurance-certificate.pdf p3",
+        "claims-procedure-guide.pdf p2",
+        "auto-policy.pdf p1",
+        "homeowners-policy.pdf p1"
+      ],
+      "best_score": 0.6108,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.9197,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.9197,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.9197
+      }
+    }
+  ]
+}

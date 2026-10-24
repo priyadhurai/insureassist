@@ -1,0 +1,8 @@
+# Local demo settings (no login yet, see src/insureassist/ui/app.py).
+[server]
+address = "localhost"   # only reachable from this computer
+port = 8501
+maxUploadSize = 20      # MB; matches MAX_UPLOAD_MB (the ingestion code checks it too)
+
+[browser]
+gatherUsageStats = false

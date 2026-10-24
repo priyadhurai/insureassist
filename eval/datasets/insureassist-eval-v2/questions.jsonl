@@ -1,0 +1,28 @@
+{"id": "q01", "category": "conflicting", "question": "What is the collision deductible on the auto policy?", "relevant": [{"doc": "auto-policy.pdf", "page": 3}, {"doc": "auto-policy-amendment.pdf", "page": 1}], "key_facts": ["$500", "$750"]}
+{"id": "q02", "category": "numeric", "question": "What is the deductible for comprehensive (non-collision) damage?", "relevant": [{"doc": "auto-policy.pdf", "page": 3}], "key_facts": ["$250"]}
+{"id": "q03", "category": "keyword", "question": "What does Form AP-RS-12 cover?", "relevant": [{"doc": "auto-policy.pdf", "page": 2}], "key_facts": ["Rideshare"]}
+{"id": "q04", "category": "numeric", "question": "What are the bodily injury liability limits?", "relevant": [{"doc": "auto-policy.pdf", "page": 2}], "key_facts": ["$100,000", "$300,000"]}
+{"id": "q05", "category": "numeric", "question": "What is the property damage liability limit?", "relevant": [{"doc": "auto-policy.pdf", "page": 2}], "key_facts": ["$50,000"]}
+{"id": "q06", "category": "conflicting", "question": "If my car is in the shop after an accident, will you pay for a replacement car?", "relevant": [{"doc": "auto-policy.pdf", "page": 3}, {"doc": "auto-policy-amendment.pdf", "page": 1}], "key_facts": ["$40", "$50"]}
+{"id": "q07", "category": "factual", "question": "How long do I have to report a car accident?", "relevant": [{"doc": "auto-policy.pdf", "page": 4}], "key_facts": ["30 days"]}
+{"id": "q08", "category": "definition", "question": "What counts as a covered auto?", "relevant": [{"doc": "auto-policy.pdf", "page": 1}], "key_facts": ["14 days"]}
+{"id": "q09", "category": "definition", "question": "What does actual cash value mean?", "relevant": [{"doc": "auto-policy.pdf", "page": 1}], "key_facts": ["depreciation"]}
+{"id": "q10", "category": "paraphrase", "question": "Is damage to my tires from potholes covered?", "relevant": [{"doc": "auto-policy.pdf", "page": 3}], "key_facts": ["road damage to tires"]}
+{"id": "q11", "category": "factual", "question": "Am I covered while taking part in a street race?", "relevant": [{"doc": "auto-policy.pdf", "page": 2}], "key_facts": ["racing"]}
+{"id": "q12", "category": "numeric", "question": "How much notice do you give before cancelling a policy for nonpayment?", "relevant": [{"doc": "auto-policy.pdf", "page": 4}], "key_facts": ["10 days"]}
+{"id": "q13", "category": "factual", "question": "How long does it take to acknowledge a new claim?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 1}, {"doc": "claims-procedure-guide.pdf", "page": 2}], "key_facts": ["10 business days"]}
+{"id": "q14", "category": "numeric", "question": "How long does the insurer take to accept or deny a claim?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 2}], "key_facts": ["30 days"]}
+{"id": "q15", "category": "numeric", "question": "How long do I have to appeal a claim decision?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 2}], "key_facts": ["60 days"]}
+{"id": "q16", "category": "factual", "question": "Who reviews my appeal?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 2}], "key_facts": ["not involved"]}
+{"id": "q17", "category": "paraphrase", "question": "What should I do first after a loss?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 1}], "key_facts": ["prevent further damage"]}
+{"id": "q18", "category": "factual", "question": "What documents might I need to send for my claim?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 1}], "key_facts": ["repair estimates"]}
+{"id": "q19", "category": "factual", "question": "What happens if someone files a false claim?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 2}], "key_facts": ["fraud"]}
+{"id": "q20", "category": "keyword", "question": "What is the claims phone number?", "relevant": [{"doc": "claims-procedure-guide.pdf", "page": 1}, {"doc": "auto-policy.pdf", "page": 4}], "key_facts": ["1-800-555-0100"]}
+{"id": "q21", "category": "multi_doc", "question": "How long do I have to report a car accident, and how soon will the claim be acknowledged?", "relevant": [{"doc": "auto-policy.pdf", "page": 4}, {"doc": "claims-procedure-guide.pdf", "page": 1}], "key_facts": ["30 days", "10 business days"]}
+{"id": "q22", "category": "paraphrase", "question": "If my car is stolen, who else do I need to tell besides you?", "relevant": [{"doc": "auto-policy.pdf", "page": 4}], "key_facts": ["police"]}
+{"id": "q23", "category": "factual", "question": "When does the auto policy amendment take effect?", "relevant": [{"doc": "auto-policy-amendment.pdf", "page": 1}], "key_facts": ["January 1, 2027"]}
+{"id": "u01", "category": "unanswerable", "question": "Does the auto policy cover my boat?", "relevant": [], "key_facts": []}
+{"id": "u02", "category": "unanswerable", "question": "How much is the monthly premium for the auto policy?", "relevant": [], "key_facts": []}
+{"id": "u03", "category": "unanswerable", "question": "Is pet insurance included?", "relevant": [], "key_facts": []}
+{"id": "u04", "category": "unanswerable", "question": "Who is the CEO of Example Mutual Insurance?", "relevant": [], "key_facts": []}
+{"id": "u05", "category": "unanswerable", "question": "What is the capital of France?", "relevant": [], "key_facts": []}

@@ -1,0 +1,856 @@
+{
+  "name": "v2-keyword",
+  "created_at": "2026-10-19T07:30:20+00:00",
+  "git_commit": "no-commit-yet",
+  "dataset": "insureassist-eval-v2",
+  "config": {
+    "retriever": "keyword",
+    "candidate_k": 50,
+    "rrf_k": 60,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "chunk_size_chars": 800,
+    "chunk_overlap_chars": 120,
+    "indexed_chunks": 14
+  },
+  "averages": {
+    "mrr": 0.8225,
+    "recall@1": 0.6739,
+    "hit@1": 0.7391,
+    "ndcg@1": 0.7391,
+    "recall@3": 0.8478,
+    "hit@3": 0.913,
+    "ndcg@3": 0.8016,
+    "recall@5": 0.9565,
+    "hit@5": 0.9565,
+    "ndcg@5": 0.8536,
+    "recall@10": 0.9565,
+    "hit@10": 0.9565,
+    "ndcg@10": 0.8536
+  },
+  "by_category": {
+    "conflicting": {
+      "mrr": 0.6666,
+      "recall@1": 0.25,
+      "hit@1": 0.5,
+      "ndcg@1": 0.5,
+      "recall@3": 0.75,
+      "hit@3": 1.0,
+      "ndcg@3": 0.6533,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.7853,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.7853
+    },
+    "definition": {
+      "mrr": 0.6666,
+      "recall@1": 0.5,
+      "hit@1": 0.5,
+      "ndcg@1": 0.5,
+      "recall@3": 1.0,
+      "hit@3": 1.0,
+      "ndcg@3": 0.75,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.75,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.75
+    },
+    "factual": {
+      "mrr": 0.9286,
+      "recall@1": 0.7857,
+      "hit@1": 0.8571,
+      "ndcg@1": 0.8571,
+      "recall@3": 1.0,
+      "hit@3": 1.0,
+      "ndcg@3": 0.9473,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.9473,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.9473
+    },
+    "keyword": {
+      "mrr": 0.75,
+      "recall@1": 0.5,
+      "hit@1": 0.5,
+      "ndcg@1": 0.5,
+      "recall@3": 0.75,
+      "hit@3": 1.0,
+      "ndcg@3": 0.6935,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.812,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.812
+    },
+    "multi_doc": {
+      "mrr": 1.0,
+      "recall@1": 0.5,
+      "hit@1": 1.0,
+      "ndcg@1": 1.0,
+      "recall@3": 0.5,
+      "hit@3": 1.0,
+      "ndcg@3": 0.6131,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 0.8772,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 0.8772
+    },
+    "numeric": {
+      "mrr": 1.0,
+      "recall@1": 1.0,
+      "hit@1": 1.0,
+      "ndcg@1": 1.0,
+      "recall@3": 1.0,
+      "hit@3": 1.0,
+      "ndcg@3": 1.0,
+      "recall@5": 1.0,
+      "hit@5": 1.0,
+      "ndcg@5": 1.0,
+      "recall@10": 1.0,
+      "hit@10": 1.0,
+      "ndcg@10": 1.0
+    },
+    "paraphrase": {
+      "mrr": 0.4167,
+      "recall@1": 0.3333,
+      "hit@1": 0.3333,
+      "ndcg@1": 0.3333,
+      "recall@3": 0.3333,
+      "hit@3": 0.3333,
+      "ndcg@3": 0.3333,
+      "recall@5": 0.6667,
+      "hit@5": 0.6667,
+      "ndcg@5": 0.4769,
+      "recall@10": 0.6667,
+      "hit@10": 0.6667,
+      "ndcg@10": 0.4769
+    }
+  },
+  "best_score_answerable": {
+    "min": 1.227,
+    "mean": 4.5585,
+    "max": 9.8694
+  },
+  "best_score_unanswerable": {
+    "min": 0.0,
+    "mean": 1.4842,
+    "max": 3.2071
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "category": "conflicting",
+      "question": "What is the collision deductible on the auto policy?",
+      "relevant": [
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p3"
+      ],
+      "retrieved": [
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2"
+      ],
+      "best_score": 4.4245,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q02",
+      "category": "numeric",
+      "question": "What is the deductible for comprehensive (non-collision) damage?",
+      "relevant": [
+        "auto-policy.pdf p3"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p3",
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p2",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "best_score": 5.262,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q03",
+      "category": "keyword",
+      "question": "What does Form AP-RS-12 cover?",
+      "relevant": [
+        "auto-policy.pdf p2"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p1",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 9.8694,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q04",
+      "category": "numeric",
+      "question": "What are the bodily injury liability limits?",
+      "relevant": [
+        "auto-policy.pdf p2"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p2",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 9.5049,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q05",
+      "category": "numeric",
+      "question": "What is the property damage liability limit?",
+      "relevant": [
+        "auto-policy.pdf p2"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p1",
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p3",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "best_score": 4.1814,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q06",
+      "category": "conflicting",
+      "question": "If my car is in the shop after an accident, will you pay for a replacement car?",
+      "relevant": [
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p3"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "auto-policy-amendment.pdf p1",
+        "claims-procedure-guide.pdf p2"
+      ],
+      "best_score": 4.939,
+      "scores": {
+        "mrr": 0.3333,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.5,
+        "hit@3": 1.0,
+        "ndcg@3": 0.3066,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.5706,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.5706
+      }
+    },
+    {
+      "id": "q07",
+      "category": "factual",
+      "question": "How long do I have to report a car accident?",
+      "relevant": [
+        "auto-policy.pdf p4"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "best_score": 3.9443,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q08",
+      "category": "definition",
+      "question": "What counts as a covered auto?",
+      "relevant": [
+        "auto-policy.pdf p1"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p4",
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p2"
+      ],
+      "best_score": 1.227,
+      "scores": {
+        "mrr": 0.3333,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "id": "q09",
+      "category": "definition",
+      "question": "What does actual cash value mean?",
+      "relevant": [
+        "auto-policy.pdf p1"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p1"
+      ],
+      "best_score": 8.2492,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q10",
+      "category": "paraphrase",
+      "question": "Is damage to my tires from potholes covered?",
+      "relevant": [
+        "auto-policy.pdf p3"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p4",
+        "auto-policy-amendment.pdf p1",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "best_score": 2.6556,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q11",
+      "category": "factual",
+      "question": "Am I covered while taking part in a street race?",
+      "relevant": [
+        "auto-policy.pdf p2"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p4",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 2.4591,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q12",
+      "category": "numeric",
+      "question": "How much notice do you give before cancelling a policy for nonpayment?",
+      "relevant": [
+        "auto-policy.pdf p4"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "claims-procedure-guide.pdf p2",
+        "auto-policy.pdf p1",
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "best_score": 7.7381,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q13",
+      "category": "factual",
+      "question": "How long does it take to acknowledge a new claim?",
+      "relevant": [
+        "claims-procedure-guide.pdf p1",
+        "claims-procedure-guide.pdf p2"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 2.8893,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q14",
+      "category": "numeric",
+      "question": "How long does the insurer take to accept or deny a claim?",
+      "relevant": [
+        "claims-procedure-guide.pdf p2"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2",
+        "auto-policy.pdf p4",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 3.9445,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q15",
+      "category": "numeric",
+      "question": "How long do I have to appeal a claim decision?",
+      "relevant": [
+        "claims-procedure-guide.pdf p2"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p4",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 5.9663,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q16",
+      "category": "factual",
+      "question": "Who reviews my appeal?",
+      "relevant": [
+        "claims-procedure-guide.pdf p2"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2"
+      ],
+      "best_score": 2.5225,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q17",
+      "category": "paraphrase",
+      "question": "What should I do first after a loss?",
+      "relevant": [
+        "claims-procedure-guide.pdf p1"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p3",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p1"
+      ],
+      "best_score": 2.5198,
+      "scores": {
+        "mrr": 0.25,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "hit@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.4307,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.4307
+      }
+    },
+    {
+      "id": "q18",
+      "category": "factual",
+      "question": "What documents might I need to send for my claim?",
+      "relevant": [
+        "claims-procedure-guide.pdf p1"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 3.762,
+      "scores": {
+        "mrr": 0.5,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 0.6309,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.6309,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.6309
+      }
+    },
+    {
+      "id": "q19",
+      "category": "factual",
+      "question": "What happens if someone files a false claim?",
+      "relevant": [
+        "claims-procedure-guide.pdf p2"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2",
+        "claims-procedure-guide.pdf p1",
+        "auto-policy.pdf p2",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p4",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 5.1678,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "id": "q20",
+      "category": "keyword",
+      "question": "What is the claims phone number?",
+      "relevant": [
+        "auto-policy.pdf p4",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p2",
+        "claims-procedure-guide.pdf p1",
+        "claims-procedure-guide.pdf p2",
+        "auto-policy.pdf p4"
+      ],
+      "best_score": 1.961,
+      "scores": {
+        "mrr": 0.5,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.5,
+        "hit@3": 1.0,
+        "ndcg@3": 0.3869,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.6241,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.6241
+      }
+    },
+    {
+      "id": "q21",
+      "category": "multi_doc",
+      "question": "How long do I have to report a car accident, and how soon will the claim be acknowledged?",
+      "relevant": [
+        "auto-policy.pdf p4",
+        "claims-procedure-guide.pdf p1"
+      ],
+      "retrieved": [
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p2",
+        "claims-procedure-guide.pdf p1",
+        "claims-procedure-guide.pdf p2",
+        "auto-policy.pdf p3",
+        "auto-policy-amendment.pdf p1"
+      ],
+      "best_score": 3.9443,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 0.5,
+        "hit@3": 1.0,
+        "ndcg@3": 0.6131,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 0.8772,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 0.8772
+      }
+    },
+    {
+      "id": "q22",
+      "category": "paraphrase",
+      "question": "If my car is stolen, who else do I need to tell besides you?",
+      "relevant": [
+        "auto-policy.pdf p4"
+      ],
+      "retrieved": [
+        "claims-procedure-guide.pdf p2"
+      ],
+      "best_score": 3.9445,
+      "scores": {
+        "mrr": 0.0,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "hit@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 0.0,
+        "hit@5": 0.0,
+        "ndcg@5": 0.0,
+        "recall@10": 0.0,
+        "hit@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "id": "q23",
+      "category": "factual",
+      "question": "When does the auto policy amendment take effect?",
+      "relevant": [
+        "auto-policy-amendment.pdf p1"
+      ],
+      "retrieved": [
+        "auto-policy-amendment.pdf p1",
+        "auto-policy.pdf p4",
+        "auto-policy.pdf p1",
+        "auto-policy.pdf p3",
+        "auto-policy.pdf p2"
+      ],
+      "best_score": 3.7697,
+      "scores": {
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "hit@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    }
+  ]
+}

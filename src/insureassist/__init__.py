@@ -1,0 +1,1 @@
+"""InsureAssist - insurance knowledge assistant."""
