@@ -14,6 +14,15 @@ dependencies = [
     "rank-bm25>=0.2.2",
     "streamlit>=1.40",
     "qdrant-client>=1.12",
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "sqlalchemy>=2.0",
+    "alembic>=1.13",
+    "psycopg[binary]>=3.2",
+    "pyjwt>=2.9",
+    "argon2-cffi>=23.1",
+    "python-multipart>=0.0.9",
+    "httpx>=0.27",
 ]
 
 [project.scripts]
@@ -43,6 +52,8 @@ filterwarnings = [
     "ignore:Payload indexes have no effect in the local Qdrant:UserWarning",
     # Only when Qdrant is unreachable (tested on purpose); our own clearer error is raised.
     "ignore:Failed to obtain server version:UserWarning",
+    # Third-party notice from FastAPI's TestClient (not our code).
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated",
 ]
 
 [tool.ruff]
@@ -55,7 +66,7 @@ select = ["E", "F", "I", "B", "UP", "S"]
 ignore = []
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S101", "S311"]  # pytest uses assert; random is for test inputs, not security
+"tests/**" = ["S101", "S105", "S106", "S311"]  # pytest asserts; fixed test passwords; random test inputs
 
 [tool.mypy]
 python_version = "3.12"
